@@ -5,9 +5,9 @@ from pwnagotchi import plugins
 
 class Tokutalk(plugins.Plugin):
     __author__ = 'd3nt4ku'
-    __version__ = '1.0.0'
+    __version__ = '1.0.1'
     __license__ = 'GPL3'
-    __description__ = 'Alternates between English and Japanese languages and fonts. Handles power and data port behavior [sort of].'
+    __description__ = 'Alternates between English and Japanese languages and fonts.'
 
     def __init__(self):
         super().__init__()
@@ -88,7 +88,7 @@ class Tokutalk(plugins.Plugin):
 
             # Restart the Pwnagotchi service to apply changes
             logging.info("Restarting Pwnagotchi service to apply changes.")
-            os.system("systemctl restart pwnagotchi")
+            self.restart_pwnagotchi()
 
             # Toggle the state for the next switch
             self.current_state = 1 - self.current_state
@@ -123,17 +123,19 @@ class Tokutalk(plugins.Plugin):
             logging.error(f"Failed to read current mode: {e}")
             return "AUTO"  # Default to AUTO if unable to read
 
-    def is_connected_to_data_port(self):
+    def restart_pwnagotchi(self):
         """
-        Detects if the device is connected to the data port.
-        Returns True if connected to the data port, False otherwise.
+        Restarts the Pwnagotchi service in the correct mode.
         """
-        try:
-            # Check if the device is connected to the data port
-            # This is a placeholder; you may need to adjust the logic based on your setup
-            if os.path.exists("/sys/class/power_supply/usb/online"):
-                with open("/sys/class/power_supply/usb/online", "r") as f:
-                    return int(f.read().strip()) == 1
-        except Exception as e:
-            logging.error(f"Failed to detect data port connection: {e}")
-        return False  # Default to False if unable to detect
+        if self.current_mode:
+            try:
+                # Set the mode using the touch command
+                if self.current_mode == "AUTO":
+                    os.system("touch /root/.pwnagotchi-auto && systemctl restart pwnagotch")
+                elif self.current_mode == "MANU":
+                    os.system("touch /root/.pwnagotchi-manu && systemctl restart pwnagotch")
+
+                # Restart the service
+                logging.info(f"Restarted Pwnagotchi in {self.current_mode} mode.")
+            except Exception as e:
+                logging.error(f"Failed to restart Pwnagotchi: {e}")
