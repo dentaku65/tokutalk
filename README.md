@@ -1,7 +1,8 @@
 # tokutalk (◕‿◕ )
 ## Tokutalk a Pwnagotchi plugin
 Switch between English and Japanese language every 10 minutes  
-  
+Keeps MANU or AUTO mode session  
+
 Install needed fonts  
 `sudo apt update`  
 `sudo apt install fonts-ipafont-gothic`
