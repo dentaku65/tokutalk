@@ -131,9 +131,9 @@ class Tokutalk(plugins.Plugin):
             try:
                 # Set the mode using the touch command
                 if self.current_mode == "AUTO":
-                    os.system("touch /root/.pwnagotchi-auto && systemctl restart pwnagotch")
+                    os.system("touch /root/.pwnagotchi-auto && systemctl restart pwnagotchi")
                 elif self.current_mode == "MANU":
-                    os.system("touch /root/.pwnagotchi-manu && systemctl restart pwnagotch")
+                    os.system("touch /root/.pwnagotchi-manu && systemctl restart pwnagotchi")
 
                 # Restart the service
                 logging.info(f"Restarted Pwnagotchi in {self.current_mode} mode.")
