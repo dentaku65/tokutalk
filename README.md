@@ -17,3 +17,7 @@ Restart pwnagotchi
 `sudo systemctl restart pwnagotchi.service`  
   
 You can enable/disable the plugin via pwnagotchi plugin web panel  
+
+![pwne](https://github.com/user-attachments/assets/45fe8fb0-7dbc-41b6-8886-f28a0028a667)   
+![pwnj](https://github.com/user-attachments/assets/30acdd70-08f4-40b2-8f8f-c77e1de31870)
+
